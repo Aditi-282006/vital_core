@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VITAL-CORE | Advanced Autonomic System</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #6366f1; --success: #10b981; --danger: #f43f5e; --bg: #f8fafc; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: #0f172a; line-height: 1.6; }
+
+        /* NAVIGATION */
+        nav { padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 800; font-size: 1.4rem; color: var(--primary); text-decoration: none; cursor: pointer; }
+        .nav-links a { text-decoration: none; color: #0f172a; margin-left: 20px; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
+
+        /* HERO SECTION */
+        .hero { padding: 60px 8%; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 50px; align-items: center; background: white; }
+        .hero-h1 { font-size: 3.2rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+        .login-card { background: white; padding: 35px; border-radius: 20px; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .login-card label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--primary); margin-bottom: 5px; text-transform: uppercase; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 10px; font-family: inherit; outline: none; }
+        
+        .btn { width: 100%; padding: 14px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; background: var(--primary); color: white; }
+        .btn:hover { background: #4f46e5; transform: translateY(-2px); }
+
+        /* SECTIONS */
+        section { padding: 80px 8%; text-align: center; }
+        .section-title { font-size: 2.2rem; margin-bottom: 40px; font-weight: 800; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.02); border: 1px solid #eee; text-align: left; transition: 0.3s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .card h3 { color: var(--primary); margin-bottom: 10px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
+        .card p { font-size: 0.9rem; color: #64748b; margin-bottom: 10px; }
+        .tech-detail { font-size: 0.8rem; background: #f8fafc; padding: 10px; border-radius: 8px; color: #475569; border-left: 3px solid var(--primary); }
+
+        /* DASHBOARD */
+        #dashboard { display: none; padding: 50px 8%; min-height: 100vh; background: #f1f5f9; }
+        .terminal { background: #020617; border-radius: 12px; padding: 25px; font-family: 'JetBrains Mono', monospace; color: #cbd5e1; height: 350px; overflow-y: auto; text-align: left; }
+        .log-entry { margin-bottom: 10px; border-left: 3px solid var(--primary); padding-left: 15px; font-size: 0.85rem; }
+        
+        .dash-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 25px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo" onclick="showHome()">VITAL-CORE</div>
+        <div class="nav-links">
+            <a onclick="showHome()">Home</a>
+            <a href="#features">Detailed Features</a>
+            <a href="#how-it-works">How It Works</a>
+        </div>
+    </nav>
+
+    <div id="landing-page">
+        <header class="hero">
+            <div>
+                <h1 class="hero-h1">Autonomic <br><span style="color: var(--primary);">Self-Repair</span> Intelligence.</h1>
+                <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 30px;">A specialized Managed Element designed to maintain system equilibrium by repairing cyber-attacks, resource exhaustion, and connectivity failures.</p>
+                <button class="btn" style="width: auto; padding: 12px 30px;" onclick="document.getElementById('adminID').focus()">Start Diagnosis</button>
+            </div>
+
+            <div class="login-card">
+                <h3 style="margin-bottom: 20px;">Administrator Login</h3>
+                <label>User Access Key</label>
+                <input type="text" id="adminID" placeholder="Enter ADMIN">
+                
+                <label>System Password</label>
+                <input type="password" id="pass" placeholder="Enter 1234">
+                
+                <button class="btn" onclick="login()">Enter Command Center</button>
+            </div>
+        </header>
+
+        <section id="features" style="background: #fff;">
+            <h2 class="section-title">Comprehensive Error Analysis</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Cyber Intrusion</h3>
+                    <p>Detects unauthorized SSH brute-force attempts or socket-level port scanning.</p>
+                    <div class="tech-detail">
+                        <strong>Healing Method:</strong> Immediate termination of malicious PIDs and dynamic firewall rule generation to blacklist intruder IP addresses.
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Connectivity Stalls</h3>
+                    <p>Heals "Zombie Connections" where the hotspot is active but data packets are dropped.</p>
+                    <div class="tech-detail">
+                        <strong>Healing Method:</strong> Automated flushing of the DNS resolver cache and re-initialization of the Virtual Network Interface (wlan0).
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Resource Saturation</h3>
+                    <p>Monitors RAM heap growth to prevent system freeze caused by memory leaks.</p>
+                    <div class="tech-detail">
+                        <strong>Healing Method:</strong> Triggers aggressive Garbage Collection (GC) and recycles background worker threads to reclaim leaked RAM.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <h2 class="section-title">The MAPE-K Operational Loop</h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                
+                <div style="text-align: left; margin-top: 40px; background: white; padding: 25px; border-radius: 15px; border: 1px solid #eee;">
+                    <p><strong>Monitor:</strong> Collects heartbeats and resource logs from the computing node.</p>
+                    <p><strong>Analyze:</strong> Compares real-time data against known "Health Thresholds" to find faults.</p>
+                    <p><strong>Plan:</strong> Selects the optimal recovery script (e.g., Firewall block vs. RAM flush).</p>
+                    <p><strong>Execute:</strong> Applies the fix via System Effectors and verifies restoration.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="dashboard">
+        <div style="background: white; padding: 25px; border-radius: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--success);">
+            <div>
+                <h2 style="font-weight: 800;">Real-Time Diagnostic Console</h2>
+                <p>Status: <span id="healthStatus" style="color: var(--success); font-weight: bold;">OPTIMIZED</span> | Monitoring Active</p>
+            </div>
+            <button class="btn" style="width: auto; background: #334155;" onclick="showHome()">Logout System</button>
+        </div>
+
+        <div class="terminal" id="term">
+            <div id="logArea">
+                <div style="color: var(--success);">>> [SYSTEM] VITAL-CORE Autonomic Engine Initialized.</div>
+                <div style="color: var(--primary);">>> [IDLE] Listening for anomaly triggers...</div>
+            </div>
+        </div>
+
+        <div class="dash-controls">
+            <button class="btn" style="background: #ef4444;" onclick="runHeal('hack')">Simulate Cyber Hack</button>
+            <button class="btn" style="background: #f59e0b;" onclick="runHeal('network')">Repair Hotspot</button>
+            <button class="btn" style="background: #6366f1;" onclick="runHeal('memory')">Fix Memory Leak</button>
+            <button class="btn" style="background: #10b981;" onclick="runHeal('deadlock')">Resolve System Hang</button>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            var u = document.getElementById('adminID').value.trim().toUpperCase();
+            var p = document.getElementById('pass').value.trim();
+
+            if (u === "ADMIN" && p === "1234") {
+                document.getElementById('landing-page').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                window.scrollTo(0,0);
+            } else {
+                alert("ACCESS DENIED\nUse Key: ADMIN\nPassword: 1234");
+            }
+        }
+
+        function showHome() {
+            document.getElementById('landing-page').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'none';
+            window.scrollTo(0,0);
+        }
+
+        function addLog(msg, color) {
+            var area = document.getElementById('logArea');
+            area.innerHTML += `<div class="log-entry" style="color: ${color}">>> ${msg}</div>`;
+            var term = document.getElementById('term');
+            term.scrollTop = term.scrollHeight;
+        }
+
+        function runHeal(type) {
+            var status = document.getElementById('healthStatus');
+            status.innerText = "HEALING...";
+            status.style.color = "#f59e0b";
+
+            var data = {
+                hack: ["[SECURITY] CRITICAL: Unauthorized SSH login attempt detected from IP 192.168.4.1.", "[ANALYZE] Breach source identified as Brute Force attack on Port 22.", "[SOLVE] Intruder blacklisted via IPTables. Security Shield Resynced."],
+                network: ["[ALERT] Network Gateway Timeout. Hotspot tethering data flow 0kbps.", "[ANALYZE] Conflict found in DHCP Address Lease.", "[SOLVE] Flushing DNS. Virtual Adapter Restarted. Connectivity Restored."],
+                memory: ["[ALERT] Resource Exhaustion: RAM usage spike (97.4%).", "[ANALYZE] Memory leak detected in background worker thread.", "[SOLVE] Garbage Collection forced. Thread recycled. RAM back to 14%."],
+                deadlock: ["[ALERT] System Hang: Thread Lock detected in Node 01.", "[ANALYZE] Resource contention identified (Circular Wait).", "[SOLVE] Thread priorities reset. Deadlock broken. Equilibrium restored."]
+            };
+
+            var logs = data[type];
+            addLog(logs[0], "#f43f5e");
+            setTimeout(() => addLog(logs[1], "white"), 900);
+            setTimeout(() => {
+                addLog(logs[2], "#10b981");
+                status.innerText = "OPTIMIZED";
+                status.style.color = "#10b981";
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
